@@ -1,3 +1,4 @@
+// 工具类
 package util;
 
 import java.awt.Color;
@@ -14,7 +15,7 @@ import javax.swing.JTextField;
 
 public class GuiUtil {
     // 设置图片存放路径
-    private static String imageFolder = "C:\\Data\\Gogogo\\Notes\\hutubill\\Hutubill\\img";
+    private static String imageFolder = "../../img";
 
     /**
      * 给按钮设置图标,按钮内的文字,以及提示文字
@@ -23,10 +24,15 @@ public class GuiUtil {
      * @param tip
      */
     public static void setImageIcon(JButton b, String fileName, String tip) {
+        // 文件路径是imageFolder+fileName，
         ImageIcon i = new ImageIcon(new File(imageFolder, fileName).getAbsolutePath());
+        // 设置按键图标
         b.setIcon(i);
+        // 设置按键首选大小
         b.setPreferredSize(new Dimension(61, 81));
+        // 设置工具提示文本
         b.setToolTipText(tip);
+        // 设置文本位置，相对图标垂直位置的下方，水平位置的中心
         b.setVerticalTextPosition(JButton.BOTTOM);
         b.setHorizontalTextPosition(JButton.CENTER);
         b.setText(tip);
@@ -105,6 +111,7 @@ public class GuiUtil {
      * */
     public static void useLNF() {
         try {
+            // 需要导入liquidlnf.jar包
             javax.swing.UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -122,12 +129,10 @@ public class GuiUtil {
         JFrame f = new JFrame();
         f.setSize(500, 500);
         f.setLocationRelativeTo(null);
-//        CentrePanel cp = new CentrePanel(strechRate);
-//        f.setContentPane(cp);
+        CentrePanel cp = new CentrePanel(strechRate);
+        f.setContentPane(cp);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.add(p);
-        f.setVisible(true);
-//        cp.show(p);
+        cp.show(p);
     }
 
     /**

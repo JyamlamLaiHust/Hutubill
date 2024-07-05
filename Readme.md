@@ -124,7 +124,7 @@ CREATE TABLE record (
 
 简单说，就是先把界面做出来。 界面上的数据，都是假数据，并不是从数据库中读取的真实数据。
 
-**简陋的JFrame界面**
+**简陋的JFrame界面（后废除）**
 
 最简单朴素的实现方式：通过JFrame直接实现界面，并给每个按键设置监听，缺点是代码冗余且难以维护。
 
@@ -219,9 +219,50 @@ class HutuMainFrame {
 }
 ```
 
-## 02 居中面板
+## 02 界面包（gui）的规划
 
-Swing并没有提供一种可以很简单就居中的布局器，但是这样的布局器又很常见，所以在这里就自己开发一个专门用于居中的面板。
+![image-20240705164908844](assets/image-20240705164908844.png)
+
+- page
+  - 主框架
+- panel
+  - 界面文件
+- listener
+  - 所有的监听器都做成独立的类，实现ActionListener接口
+- model
+  - 用于存放数据，在这个项目中会用到TableModel和ComboBoxModel。
+
+
+
+## 02 单例的面板类
+
+在本项目中，各种按钮监听器的主要作用是获取组件的值，和修改组件的值。
+
+那么如何使得监听器可以方便得获取组件呢？ 这就需要用到两个设计手段
+
+1. 在面板类中，把组件声明为`public`的属性
+
+   ```java
+   public class SpendPanel{}
+   ```
+
+2. 把面板类设计为`单例模式`
+
+   ```java
+   public static SpendPanel instance = new SpendPanel();
+   ```
+
+3. 监听器通过单例模式的面板访问组件
+
+   需要说明的一点是，`report`和`spend`页面无交互设计，因此未设计监听器。
+
+
+
+## 04 居中面板 CentrePanel
+
+![image-20240705165755488](assets/image-20240705165755488.png)
+
+
 
 ## 03 GUIUtil
 
@@ -272,5 +313,15 @@ public static Connection getConnection() throws SQLException {
     String url = String.format("jdbc:mysql://%s:%d/%s?serverTimezone=Asia/Shanghai&characterEncoding=%s", ip, port, database, encoding);
     return DriverManager.getConnection(url, loginName, password);
 }
+```
+
+[解决Loading class `'com.mysql.jdbc.Driver'. This is deprecated. The new driver class is 'com.mysql.cj.jdbc.Driver'.`](https://www.cnblogs.com/baby123/p/10436710.html)
+
+```java
+try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 ```
 

@@ -1,3 +1,4 @@
+// 居中布局
 package util;
 
 import java.awt.Component;
@@ -24,7 +25,7 @@ public class CentrePanel extends JPanel {
     }
 
     public CentrePanel(double rate) {
-        this(rate,true);
+        this(rate,true); // 默认允许拉伸
     }
 
     public void repaint() {
@@ -37,24 +38,32 @@ public class CentrePanel extends JPanel {
             else
                 c.setSize(componentSize);
 
-            c.setLocation(containerSize.width / 2 - c.getSize().width / 2, containerSize.height / 2 - c.getSize().height / 2);
+            // 放在界面的水平中心
+            c.setLocation(containerSize.width / 2 - c.getSize().width / 2,
+                    containerSize.height / 2 - c.getSize().height / 2);
         }
         super.repaint();
     }
 
     public void show(JComponent p) {
         this.c = p;
+
+        //获取在显示框架上的全部面板并移除
         Component[] cs = getComponents();
         for (Component c : cs) {
             remove(c);
         }
-        add(p);
 
+         // 判断需要显示的面板是否是WorkingPanel
+         // 是 则需要用updateDate()来让界面显示和数据库同步
         if (p instanceof WorkingPanel)
             ((WorkingPanel) p).updateDate();
+
+        add(p);
         this.updateUI();
     }
 
+    // 测试函数，在面板上放一个按钮，这个按钮会自动拉伸居中。
     public static void main(String[] args) {
         JFrame f = new JFrame();
         f.setSize(200, 200);

@@ -1,3 +1,4 @@
+// 环形进度条工具
 package util;
 
 import java.awt.BasicStroke;
@@ -33,8 +34,10 @@ public class CircleProgressBar extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D graphics2d = (Graphics2D) g;
-
+        // 启用抗锯齿，提高图形质量
         graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+
         int x = 0;
         int y = 0;
         int width = 0;
@@ -53,13 +56,19 @@ public class CircleProgressBar extends JPanel {
             height = getWidth() - 50;
             fontSize = getHeight() / 8;
         }
+
+        // 设置线条宽度为 20 像素，绘制一个完整的圆形作为背景。
         graphics2d.setStroke(new BasicStroke(20.0f));
         graphics2d.setColor(backgroundColor);
         graphics2d.drawArc(x, y, width, height, 0, 360);
+
+        // 根据当前进度计算需要绘制的圆弧角度，绘制进度部分。
         graphics2d.setColor(foregroundColor);
         graphics2d.drawArc(x, y, width, height, 90,
                 -(int) (360 * ((progress * 1.0) / (maximumProgress - minimumProgress))));
-        graphics2d.setFont(new Font("ºÚÌå", Font.BOLD, fontSize));
+
+        // 设置字体，计算文本位置，并在圆的中心绘制进度文本。
+        graphics2d.setFont(new Font("黑体", Font.BOLD, fontSize));
         FontMetrics fontMetrics = graphics2d.getFontMetrics();
         int digitalWidth = fontMetrics.stringWidth(progressText);
         int digitalAscent = fontMetrics.getAscent();
@@ -71,6 +80,7 @@ public class CircleProgressBar extends JPanel {
         return progress;
     }
 
+    // 限定progress只能在0-100之间
     public void setProgress(int progress) {
         if (progress >= minimumProgress && progress <= maximumProgress)
             this.progress = progress;
@@ -82,6 +92,7 @@ public class CircleProgressBar extends JPanel {
         this.repaint();
     }
 
+    // 获取和设置背景色
     public Color getBackgroundColor() {
         return backgroundColor;
     }
@@ -91,6 +102,7 @@ public class CircleProgressBar extends JPanel {
         this.repaint();
     }
 
+    // 获取和设置前景色
     public Color getForegroundColor() {
         return foregroundColor;
     }

@@ -47,7 +47,7 @@ public class RecordPanel extends WorkingPanel {
         GuiUtil.setColor(ColorUtil.blueColor, bSubmit);
         JPanel pInput =new JPanel();
         JPanel pSubmit = new JPanel();
-        int gap = 40;
+        int gap = 20;
         pInput.setLayout(new GridLayout(4,2,gap,gap));
         pInput.add(lSpend);
         pInput.add(tfSpend);
