@@ -2,6 +2,8 @@
 
 用时5天从配置环境到跑通代码，再到复现总结分析，全过程略为草率，对于整个业务和实现逻辑有清晰认识，但很多细节API还没有完全理解。
 
+具体注释在相应代码文件当中，Readme.md中仅记录最有代表性的代码逻辑。
+
 > 参考：
 >
 > [how2j.com 爬虫盗版](https://gitee.com/OpenDocCN/HOW2J-tuts/tree/master)
