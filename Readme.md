@@ -1,10 +1,26 @@
-本项目开发为参考 `how2j.com` 一本糊涂账，只用于学习练手。
+本项目开发为参考 `how2j.com` 一本糊涂账，只用于刚接触Java基本语法总结学习。
 
-> [how2j.com 电子书版](https://gitee.com/OpenDocCN/HOW2J-tuts/tree/master)
+用时5天从配置环境到跑通代码，再到复现总结分析，全过程略为草率，对于整个业务和实现逻辑有清晰认识，但很多细节API还没有完全理解。
+
+> 参考：
 >
-> [calibre - Download for Windows (calibre-ebook.com)](https://calibre-ebook.com/download_windows)
+> [how2j.com 爬虫盗版](https://gitee.com/OpenDocCN/HOW2J-tuts/tree/master)
+>
+> [eupb阅读器](https://calibre-ebook.com/download_windows)
 >
 > [chenqwwq/Hutuzhang: http://how2j.cn/ 上的一本糊涂账实现项目 (github.com)](https://github.com/chenqwwq/Hutuzhang/tree/master)
+
+# 0. 项目展示
+
+![image-20240708112841987](assets/image-20240708112841987.png)
+
+![image-20240708112853879](assets/image-20240708112853879.png)
+
+![image-20240708112903557](assets/image-20240708112903557.png)
+
+![](assets/image-20240708112931626.png)
+
+![image-20240708112947373](assets/image-20240708112947373.png)
 
 # 1. 开发流程
 
@@ -264,39 +280,69 @@ class HutuMainFrame {
 
 
 
-## 03 GUIUtil
+## 05 GUIUtil
 
 在开发图形界面的过程中，有很多功能在各个地方都会用到，并且重复使用的概率比较高。 比如判断一个输入框是否是数字，是否是空，是否为0等等类似的，所以把这些使用比较普遍的功能，抽象到一个工具类里。 这样以后再用的时候，就直接调用就可以了，而不需要每次都单独再写一遍。
 
-## 04 ColorUtil
-
-## 05 CircleProgressBar
-
-## 06 ChartUtil
-
-## 07 图片资源
-
-
-
 # 4. 原型-界面类
 
-## 01 MainPanel
+画界面都大同小异，CRUD工作。
 
-## 02 SpendPanel
+## 01 SpendPanel
 
+**布局分析**
 
+整体采用`BorderLayout`，中间是一个`panel`采用`BorderLayout.CENTER`，下面也是一个`panel`采用`BorderLayout.South`
+
+中间的`panel`再分为中西两部分，西边用的一个`GridLayout`，4行1列，中间返回环形进度条。
+
+南边设置2列4行的`GridLayout`。
+
+![image-20240708103558239](assets/image-20240708103558239.png)
 
 # 5. 实体类和DAO
 
+## 01 实体类Entity
 
+实体类Entity是用于映射表中的一条一条数据的。比如分类表Category，有很多条分类记录，那么就有一个类也叫做Category，这个类的一个一个的实例，就对应了表Category中的一条一条的记录。
 
-# 6. 功能
+## 02 DBUtil
 
-## 01 开发顺序
+> 记得导入jar包 mysql-connector-java-5.0.8-bin.jar
 
+```Java
+package util;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
+public class DBUtil {
+    //
+    static String ip = "127.0.0.1";
+    static int port = 3306;
+    static String database = "hutubill";
+    static String encoding = "UTF-8";
+    static String loginName = "root";
+    static String password = "admin";
+    static{
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public static Connection getConnection() throws SQLException {
+        String url = String.format("jdbc:mysql://%s:%d/%s?serverTimezone=Asia/Shanghai&characterEncoding=%s&useSSL=false", ip, port, database, encoding);
+        return DriverManager.getConnection(url, loginName, password);
+    }
+}
+```
+
+## 03 DateUtil
+
+获取时间的方式真是千奇百怪。
 
 # 7. 问题
 
@@ -319,9 +365,8 @@ public static Connection getConnection() throws SQLException {
 
 ```java
 try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    Class.forName("com.mysql.cj.jdbc.Driver");
+} catch (ClassNotFoundException e) {
+	e.printStackTrace();
+}
 ```
-

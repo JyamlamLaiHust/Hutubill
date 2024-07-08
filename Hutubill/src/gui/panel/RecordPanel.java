@@ -96,6 +96,7 @@ public class RecordPanel extends WorkingPanel {
             cbCategory.setSelectedItem(0);
         }
 
+        // 日期控件
         datepick.setDate(new Date());
     }
 

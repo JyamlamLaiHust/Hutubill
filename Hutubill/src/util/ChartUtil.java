@@ -18,7 +18,7 @@ import entity.Record;
 public class ChartUtil {
 
     /**
-     * 在柱状图下面的文字
+     * 横轴label
      * @param rs
      * @return
      */
@@ -110,6 +110,7 @@ public class ChartUtil {
 
     }
 
+    // 以下方法用于第一次生成图表界面
     private static String[] sampleLabels() {
         String[] sampleLabels = new String[30];
 

@@ -13,7 +13,7 @@ import entity.Config;
 import util.DBUtil;
 
 public class ConfigDAO {
-
+    // 定义查询语句
     private static final String SQL_ADD = "INSERT INTO config VALUES(DEFAULT,?,?);";
     private static final String SQL_UPDATE = "UPDATE config SET key_=?,value=? WHERE id=?";
     private static final String SQL_DELETE_BY_ID = "DELETE FROM config WHERE id = ?";
@@ -22,7 +22,10 @@ public class ConfigDAO {
     private static final String SQL_GET_TOTAL = "SELECT COUNT(*) FROM config";
     private static final String SQL_GET_BY_KEY = "SELECT * FROM config WHERE key_=?";
 
+
     public void add(Config config){
+        // 使用 try-with-resources 来确保资源正确关闭。
+        // 使用 PreparedStatement 预编译 SQL，防止 SQL 注入
         try(Connection conn = DBUtil.getConnection();
             PreparedStatement prep = conn.prepareStatement(SQL_ADD,new String[]{"id"});){
             prep.setString(1, config.getKey());

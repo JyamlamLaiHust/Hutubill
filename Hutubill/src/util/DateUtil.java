@@ -34,17 +34,19 @@ public class DateUtil {
 
     public static Date monthEnd(){
         Calendar c = Calendar.getInstance();
-
         c.setTime(new Date());
         c.set(Calendar.HOUR, 0);
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.DATE, 1);
-        c.add(Calendar.MONDAY, 1);
+        c.add(Calendar.MONTH, 1);
         c.add(Calendar.DATE, -1);
         return c.getTime();
     }
 
+    /*
+    * 本月总日数
+    * */
     public static int thisMonthTotalDay(){
         long lastDay = monthEnd().getTime();
         long firstDay = monthBegin().getTime();
@@ -52,6 +54,9 @@ public class DateUtil {
     }
 
 
+    /*
+    * 计算本月剩余日数
+    * */
     public static int thisMonthLeftDay(){
         long lastDay = monthEnd().getTime();
         long toDay = today().getTime();

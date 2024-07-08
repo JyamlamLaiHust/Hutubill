@@ -4,6 +4,7 @@ package util;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,8 +16,9 @@ import javax.swing.JTextField;
 
 public class GuiUtil {
     // 设置图片存放路径
-    private static String imageFolder = "../../img";
+//    private static String imageFolder = "C:\\Data\\Gogogo\\Notes\\hutubill\\Hutubill\\img";
 
+    private static String imageFolder = "img";
     /**
      * 给按钮设置图标,按钮内的文字,以及提示文字
      * @param b
@@ -25,7 +27,8 @@ public class GuiUtil {
      */
     public static void setImageIcon(JButton b, String fileName, String tip) {
         // 文件路径是imageFolder+fileName，
-        ImageIcon i = new ImageIcon(new File(imageFolder, fileName).getAbsolutePath());
+        ImageIcon i = null;
+        i = new ImageIcon(new File(imageFolder, fileName).getAbsolutePath());
         // 设置按键图标
         b.setIcon(i);
         // 设置按键首选大小

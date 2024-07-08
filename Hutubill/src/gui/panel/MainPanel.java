@@ -50,6 +50,7 @@ public class MainPanel extends JPanel {
 
         workingPanel = new CentrePanel(0.6);
 
+        // 采用BorderLayout布局
         setLayout(new BorderLayout());
         add(tb, BorderLayout.NORTH);
         add(workingPanel, BorderLayout.CENTER);
@@ -58,6 +59,9 @@ public class MainPanel extends JPanel {
     }
 
 
+    /*
+    * 定义监听方法
+    * */
     public void ButtonListener() {
         ToolBarListener tbl = new ToolBarListener();
         bBackup.addActionListener(tbl);

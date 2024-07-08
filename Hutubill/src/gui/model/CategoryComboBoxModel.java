@@ -15,6 +15,10 @@ public class CategoryComboBoxModel implements ComboBoxModel< Category >{
     Category c;
 
     public CategoryComboBoxModel() {
+//        cs.add(new Category("餐饮"));
+//        cs.add(new Category("交通"));
+//        cs.add(new Category("住宿"));
+//        cs.add(new Category("餐饮"));
         if(!cs.isEmpty()){
             c = cs.get(0);
         }
